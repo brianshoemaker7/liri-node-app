@@ -7,10 +7,10 @@ var keys = require('./keys.js');
 
 
 var client = new Twitter({
-  consumer_key: keys.consumer_key,
-  consumer_secret: keys.consumer_secret,
-  access_token_key: keys.access_token_key,
-  access_token_secret: keys.access_token_secret,
+  consumer_key: keys.twitterKeys.consumer_key,
+  consumer_secret: keys.twitterKeys.consumer_secret,
+  access_token_key: keys.twitterKeys.access_token_key,
+  access_token_secret: keys.twitterKeys.access_token_secret,
 });
  
 var params = {screen_name: '@brianshoemaker7'};
@@ -27,10 +27,6 @@ var request = require('request');
 var movieName = process.argv[3]; 
 // Then run a request to the OMDB API with the movie specified 
 var queryUrl = 'http://www.omdbapi.com/?t=' + movieName +'&y=&plot=short&r=json';
-
-// This line is just to help us debug against the actual URL.  
-console.log(queryUrl);
-
 
 // Then create a request to the queryUrl
 // ...
