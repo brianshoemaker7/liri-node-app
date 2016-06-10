@@ -1,8 +1,58 @@
-console.log('this is loaded');
+var fs = require('fs');
 
-exports.twitterKeys = {
-  consumer_key: 'k1xATRms797aNVwv96bDchZxT',
-  consumer_secret: '4SnBA2UxQ2zC4BVuz9rBnK7AbtsU8ceR8LCvRnWPYejNgrxiht',
-  access_token_key: '73072044-fK55xE1p9Q8wLLunO4Ud9mhhcWCOg9q4r0Y68ECSd',
-  access_token_secret: 'HB9eI26r0JaYdFNQqXvqx2omeNSbxfXePEsX6I9zV3p4Q',
+if (process.argv[2] === 'my-tweets') {
+
+var Twitter = require('twitter');
+var keys = require('./keys.js');
+
+
+var client = new Twitter({
+  consumer_key: keys.consumer_key,
+  consumer_secret: keys.consumer_secret,
+  access_token_key: keys.access_token_key,
+  access_token_secret: keys.access_token_secret,
+});
+ 
+var params = {screen_name: '@brianshoemaker7'};
+client.get('statuses/user_timeline', params, function(error, tweets, response){
+  if (!error) {
+    console.log(tweets);
+  }
+});
+
+} else if (process.argv[2] === 'movie-this') {
+
+var request = require('request');
+
+var movieName = process.argv[3]; 
+// Then run a request to the OMDB API with the movie specified 
+var queryUrl = 'http://www.omdbapi.com/?t=' + movieName +'&y=&plot=short&r=json';
+
+// This line is just to help us debug against the actual URL.  
+console.log(queryUrl);
+
+
+// Then create a request to the queryUrl
+// ...
+request(queryUrl, function(err, response, body) {
+	body = JSON.parse(body);
+	console.log(body);
+})
+
+}  else if (process.argv[2]  === 'spotify-this-song'){
+
+ 
+ var songName = process.argv[3];
+
+ var spotify = require('spotify');
+ 
+spotify.search({ type: 'track', query: songName}, function(err, data) {
+    if ( err ) {
+        console.log('Error occurred: ' + err);
+        return;
+    }
+ 
+    console.log(data);
+});
+
 }
