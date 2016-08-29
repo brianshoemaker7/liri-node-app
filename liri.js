@@ -49,6 +49,6 @@ spotify.search({ type: 'track', query: songName}, function(err, data) {
     }
  
     console.log(data);
-});
+})
 
 }
